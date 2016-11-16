@@ -1,4 +1,6 @@
+var max = 30;
 document.getElementById("ditem").style.display = "none";
+document.getElementById("maxSp").innerHTML= "Maximum storage space: "+ max;
 
 /**
 * La funznione addItems() provvede a mostrare la form per l'inserimento o l'aggiornamento
@@ -9,7 +11,7 @@ document.getElementById("ditem").style.display = "none";
 **/
 function addItems() {
     if(document.getElementById("ditem").style.display == "none")
-        document.getElementById("ditem").style.display = "inline";
+        document.getElementById("ditem").style.display = "block";
     else
 	   document.getElementById("ditem").style.display = "none";
 }
@@ -49,15 +51,57 @@ function submit() {
                 var t1 = parseInt(cel[j+1].innerHTML);
                 var t2 = parseInt(qt);
                 qt=t1+t2;
-                cel[j+1].innerHTML=qt;
+                if(qt>max){
+                    alert("Quantity is too hight!")
+                }
+                else{
+                    cel[j+1].innerHTML=qt;
+                }
                 return;
             }
         }
-        td.appendChild(document.createTextNode(item));
-        tr.appendChild(td);
-        td = document.createElement('td');
-        td.appendChild(document.createTextNode(qt));
-        tr.appendChild(td);
-        tbody.appendChild(tr);
+        if(qt>max){
+            alert("Quantity is too hight!")
+        }
+        else{
+            td.appendChild(document.createTextNode(item));
+            tr.appendChild(td);
+            td = document.createElement('td');
+            td.appendChild(document.createTextNode(qt));
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+        }
+    }
+}
+
+/**
+* La funznione addSpace() provvede a modificare la capacità massima del magazzino.
+* Per effettuare tale operazione si procede alla scansione di tutti gli items presenti
+* nella tabella per impossibiltare la creazione di un magazzino con capacità inferiore
+* alla quantità già presenti in esso.
+* Si effettua la scansione solamente sulla colonna quantity, lanciando un messaggio di
+* errore nel caso ci fosse un valore maggione a quello che sta per essere aggiornato(max),
+* nel caso contrario max viene modificato con il nuovo valore.
+*
+* @param:
+* @return:
+**/
+function addSpace(){
+    var table = document.getElementById("tb");
+    var ncol = table.getElementsByTagName('th').length;
+    var cel = table.getElementsByTagName('td');
+    var temp = prompt("Insert new maximum storage space","");
+    console.log(max);
+    var tooLow=false;
+    for(var j=1; j<cel.length; j=(j+ncol)){
+        if(cel[j].innerHTML>temp){
+            alert("Value too low!");
+            tooLow=true;
+            break;
+        }
+    }
+    if(!tooLow){
+        max=temp;
+        document.getElementById("maxSp").innerHTML= "Maximum storage space: "+ max;
     }
 }
