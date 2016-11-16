@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<body>
+        <h1>STORAGE TABLE</h1>
+        
+        <table id="tb" border="1">
+            <thead>
+                <tr><th>ITEM</th><th>QUANTITY</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>it001</td><td>10</td></tr>
+                <tr><td>it002</td><td>20</td></tr>
+                <tr><td>it003</td><td>30</td></tr>
+            </tbody>
+        </table>
+        
+        <div id="ditem" border="1">
+            Item: <input type="text" id="item"><br>
+            Quantity: <input type="text" id="quantity"><br>
+            <button onmousedown="submit()" id="sub"> Submit </button>
+        </div>
+        
+        
+        <button id="add" onmousedown="addItems()"> Add Items</button>
+        <script src="script_es1.js"></script>
+    </body>
+</html>
